@@ -1,0 +1,37 @@
+﻿<#@ template language="C#"
+#><#@ assembly name="System.Core.dll"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.Linq"
+#><#
+var maxParams = 16;
+#>
+using System;
+using System.Linq.Expressions;
+
+namespace Fold
+{
+    public static class Inject
+    {
+
+<# for(var i = 0; i <= maxParams; ++i) {
+	var paramList = string.Join("", Enumerable.Range(1, i).Select(n => string.Format("T{0}, ", n)));
+	var argList = string.Join("", Enumerable.Range(1, i).Select(n => string.Format("T{0} arg{0}, ", n)));
+#>
+        /// <summary>
+        /// Marks a location inside an expression where
+        /// the specified expression is to be inserted.
+        /// </summary>
+        /// <typeparam name="TResult">Type of the expression's return value</typeparam>
+<# for(var j = 1; j <= i; ++j) { #>
+        /// <typeparam name="T<#= j #>">The type of parameter #<#= j #></typeparam>
+        /// <param name="arg<#= j #>">The value to use for parameter #<#= j #></param>
+<# } #>
+        /// <param name="expression">The expression to be injected</param>
+        public static TResult Expression<<#= paramList #>TResult>(<#= argList #>Expression<Func<<#= paramList #>TResult>> expression)
+        {
+            throw new NotSupportedException("Calling this method directly is not supported; it is meant to be used inside an Expression. Did you forget to call Transform() on the expression ?");
+        }
+
+<# } #>
+    }
+}
