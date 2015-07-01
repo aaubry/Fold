@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExpressionExtensions.cs" />
+    <Compile Include="ExpressionIterationExtensions.cs" />
+    <Compile Include="ExpressionMatchExtensions.cs" />
+    <Compile Include="ExpressionTransformExtensions.cs" />
     <Compile Include="Inject.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

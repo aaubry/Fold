@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Fold
 {
-    public static class ExpressionExtensions
+    public static class ExpressionTransformExtensions
     {
         public static Expression<TFunc> Transform<TFunc>(this Expression<TFunc> expression)
         {
